@@ -10,5 +10,4 @@ public class TrSearchApplication {
 		SpringApplication.run(TrSearchApplication.class, args);
 	}
 
-
 }
