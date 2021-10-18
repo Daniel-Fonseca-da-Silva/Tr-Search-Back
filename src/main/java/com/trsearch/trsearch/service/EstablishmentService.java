@@ -25,4 +25,9 @@ public class EstablishmentService {
 				"Don't possible to find this establishment! id: " + "type: " + Establishment.class.getName()));
 	}
 	
+	public List<Establishment> establishmentName(String name) {
+		List<Establishment> establishments = repo.findByName(name);
+		return establishments;
+	}
+	
 }
