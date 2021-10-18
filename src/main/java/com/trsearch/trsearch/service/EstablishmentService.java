@@ -49,4 +49,8 @@ public class EstablishmentService {
 		return repo.save(establishment);
 	}
 	
+	public void deleteEstablishment(Long id) {
+		repo.deleteById(id);
+	}
+	
 }
