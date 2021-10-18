@@ -17,4 +17,7 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	@Query("SELECT obj FROM Establishment obj WHERE obj.actived = true ORDER BY obj.id")
 	List<Establishment> findByActived();
 	
+	@Query("SELECT obj FROM Establishment obj WHERE obj.actived = false ORDER BY obj.id")
+	List<Establishment> findByDeactivated();
+	
 }

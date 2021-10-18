@@ -39,4 +39,9 @@ public class EstablishmentService {
 		return establishments;
 	}
 	
+	public List<Establishment> establishmentDeactivated() {
+		List<Establishment> establishments = repo.findByDeactivated();
+		return establishments;
+	}
+	
 }

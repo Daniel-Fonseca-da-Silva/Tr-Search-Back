@@ -49,4 +49,10 @@ public class EstablishmentController {
 		return ResponseEntity.ok().body(establishments);
 	}
 	
+	@GetMapping("/deactivated")
+	public ResponseEntity<List<Establishment>> establishmentDeactivated() {
+		List<Establishment> establishments = service.establishmentDeactivated();
+		return ResponseEntity.ok().body(establishments);
+	}
+	
 }
