@@ -14,4 +14,7 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 	
 	Iterable<Establishment> findByCategory(String category);
 	
+	@Query("SELECT obj FROM Establishment obj WHERE obj.actived = true ORDER BY obj.id")
+	List<Establishment> findByActived();
+	
 }

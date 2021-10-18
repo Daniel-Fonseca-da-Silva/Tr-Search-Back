@@ -34,4 +34,9 @@ public class EstablishmentService {
 		return repo.findByCategory(category);
 	}
 	
+	public List<Establishment> establishmentActived() {
+		List<Establishment> establishments = repo.findByActived();
+		return establishments;
+	}
+	
 }

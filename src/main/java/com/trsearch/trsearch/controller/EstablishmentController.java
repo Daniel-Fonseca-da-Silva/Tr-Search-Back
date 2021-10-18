@@ -43,4 +43,10 @@ public class EstablishmentController {
 		return establishments.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(establishments);
 	}
 	
+	@GetMapping("/actived")
+	public ResponseEntity<List<Establishment>> establishmentActived() {
+		List<Establishment> establishments = service.establishmentActived();
+		return ResponseEntity.ok().body(establishments);
+	}
+	
 }
