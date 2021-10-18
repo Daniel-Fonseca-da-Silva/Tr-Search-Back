@@ -53,4 +53,24 @@ public class EstablishmentService {
 		repo.deleteById(id);
 	}
 	
+	public Establishment updateEstablishment(Long id, Establishment establishment) {
+		Establishment newEstablishment = getEstablishmentById(id);
+		newEstablishment.setName(establishment.getName());
+		newEstablishment.setSite(establishment.getSite());
+		newEstablishment.setAddress(establishment.getAddress());
+		newEstablishment.setNumberr(establishment.getNumberr());
+		newEstablishment.setCep(establishment.getCep());
+		newEstablishment.setEmail(establishment.getEmail());
+		newEstablishment.setTel(establishment.getTel());
+		newEstablishment.setCel(establishment.getCel());
+		newEstablishment.setDistrict(establishment.getDistrict());
+		newEstablishment.setCity(establishment.getCity());
+		newEstablishment.setState(establishment.getState());
+		newEstablishment.setCategory(establishment.getCategory());
+		newEstablishment.setImgurl(establishment.getImgurl());
+		newEstablishment.setDescription(establishment.getDescription());
+
+		return repo.save(newEstablishment);
+	}
+	
 }
