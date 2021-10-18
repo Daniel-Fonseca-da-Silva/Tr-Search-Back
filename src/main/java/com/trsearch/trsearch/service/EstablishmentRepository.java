@@ -11,5 +11,7 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
 
 	@Query("FROM Establishment WHERE name LIKE %?1%")
 	List<Establishment> findByName(String name);
-
+	
+	Iterable<Establishment> findByCategory(String category);
+	
 }

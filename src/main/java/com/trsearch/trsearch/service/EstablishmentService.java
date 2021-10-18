@@ -30,4 +30,8 @@ public class EstablishmentService {
 		return establishments;
 	}
 	
+	public Iterable<Establishment> establishmentCategory(String category) {
+		return repo.findByCategory(category);
+	}
+	
 }

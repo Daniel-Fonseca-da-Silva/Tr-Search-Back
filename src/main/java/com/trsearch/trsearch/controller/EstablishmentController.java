@@ -37,4 +37,10 @@ public class EstablishmentController {
 		return ResponseEntity.ok().body(establishments);
 	}
 	
+	@GetMapping("/category/{category}")
+	public ResponseEntity<List<Establishment>> establishmentCategory(@PathVariable("category") String category) {
+		List<Establishment> establishments = (List<Establishment>) service.establishmentCategory(category);
+		return establishments.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(establishments);
+	}
+	
 }
