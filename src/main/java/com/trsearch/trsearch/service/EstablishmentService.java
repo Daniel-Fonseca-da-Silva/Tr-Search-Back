@@ -1,20 +1,20 @@
 package com.trsearch.trsearch.service;
 
-import com.trsearch.trsearch.model.Establishments;
-
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.trsearch.trsearch.model.Establishment;
+
+@Service
 public class EstablishmentService {
-
-    public List<Establishments> getEstablishments() {
-        List<Establishments> establishments = new ArrayList<>();
-
-        establishments.add(new Establishments("Padaria", "Três Rios"));
-        establishments.add(new Establishments("Mercado", "Levy"));
-        establishments.add(new Establishments("Açougue", "Paraiba do Sul"));
-
-        return establishments;
-    }
-
+	
+	@Autowired
+	private EstablishmentRepository repo;
+	
+	public List<Establishment> getEstablishment() {
+		return repo.findAll();
+	}
+	
 }
