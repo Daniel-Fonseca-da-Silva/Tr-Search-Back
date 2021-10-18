@@ -44,4 +44,9 @@ public class EstablishmentService {
 		return establishments;
 	}
 	
+	public Establishment createEstablishment(Establishment establishment) {
+		establishment.setId(null);
+		return repo.save(establishment);
+	}
+	
 }
