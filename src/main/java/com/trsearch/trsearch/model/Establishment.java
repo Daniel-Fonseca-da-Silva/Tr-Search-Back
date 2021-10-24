@@ -39,10 +39,10 @@ public class Establishment implements Serializable {
 	@Column(length = 100)
 	private String email;
 
-	@Column(length = 14)
+	@Column(length = 15)
 	private String tel;
 
-	@Column(length = 14)
+	@Column(length = 15)
 	private String cel;
 
 	@Column(length = 50, nullable = false)
@@ -65,12 +65,12 @@ public class Establishment implements Serializable {
 
 	private Double score;
 
-	@Column(columnDefinition = "BOOLEAN DEFAULT false")
-	private Boolean actived;
+	@Column(name = "actived", nullable = false)
+	private Boolean actived = false;
 
-	@Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private Date dataest;
+    @Column(name = "dataest", nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private Date dataest = new Date();
 
 	@Deprecated
 	public Establishment() {
