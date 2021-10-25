@@ -2,7 +2,6 @@ package com.trsearch.trsearch.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,10 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class UserCom implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -45,113 +47,5 @@ public class UserCom implements Serializable {
 
 	@Column(length = 12, nullable = false, unique = true)
 	private String passwordCom;
-
-	@Deprecated
-	public UserCom() {
-		super();
-	}
-
-	public UserCom(Long id, String nameCom, String surnameCom, Date birthdayCom, String cpfCom, String genderCom,
-			String loginCom, String emailCom, String passwordCom) {
-		super();
-		this.id = id;
-		this.nameCom = nameCom;
-		this.surnameCom = surnameCom;
-		this.birthdayCom = birthdayCom;
-		this.cpfCom = cpfCom;
-		this.genderCom = genderCom;
-		this.loginCom = loginCom;
-		this.emailCom = emailCom;
-		this.passwordCom = passwordCom;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNameCom() {
-		return nameCom;
-	}
-
-	public void setNameCom(String nameCom) {
-		this.nameCom = nameCom;
-	}
-
-	public String getSurnameCom() {
-		return surnameCom;
-	}
-
-	public void setSurnameCom(String surnameCom) {
-		this.surnameCom = surnameCom;
-	}
-
-	public Date getBirthdayCom() {
-		return birthdayCom;
-	}
-
-	public void setBirthdayCom(Date birthdayCom) {
-		this.birthdayCom = birthdayCom;
-	}
-
-	public String getCpfCom() {
-		return cpfCom;
-	}
-
-	public void setCpfCom(String cpfCom) {
-		this.cpfCom = cpfCom;
-	}
-
-	public String getGenderCom() {
-		return genderCom;
-	}
-
-	public void setGenderCom(String genderCom) {
-		this.genderCom = genderCom;
-	}
-
-	public String getLoginCom() {
-		return loginCom;
-	}
-
-	public void setLoginCom(String loginCom) {
-		this.loginCom = loginCom;
-	}
-
-	public String getEmailCom() {
-		return emailCom;
-	}
-
-	public void setEmailCom(String emailCom) {
-		this.emailCom = emailCom;
-	}
-
-	public String getPasswordCom() {
-		return passwordCom;
-	}
-
-	public void setPasswordCom(String passwordCom) {
-		this.passwordCom = passwordCom;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserCom other = (UserCom) obj;
-		return Objects.equals(id, other.id);
-	}
 
 }
