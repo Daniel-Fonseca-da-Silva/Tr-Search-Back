@@ -1,4 +1,4 @@
-INSERT INTO user_common(
+INSERT INTO user_com(
 name_com,
 surname_com,
 birthday_com,
@@ -18,4 +18,6 @@ VALUES
     'cceciliamayapeixoto@amure.com.br',
     'nTwRKrYILq'
 );
+
+SELECT * FROM user_com;
 
