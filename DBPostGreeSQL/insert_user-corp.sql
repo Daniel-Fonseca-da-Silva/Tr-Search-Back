@@ -1,9 +1,9 @@
-INSERT INTO userCorp(
-	nameCorp,
-	cnpjCorp,
-	loginCorp,
-	emailCorp,
-	passwordCorp
+INSERT INTO user_corp(
+	name_corp,
+	cnpj_corp,
+	login_corp,
+	email_corp,
+	password_corp
 ) 
 VALUES
 (
@@ -14,5 +14,5 @@ VALUES
     'nTxrKgY$L@'
 );
 
-SELECT * FROM userCorp;
+SELECT * FROM user_corp;
 
