@@ -20,5 +20,23 @@ public class UserComService {
 	public void createUseCom(UserCom userCom) {
 		repo.save(userCom);
 	}
+
+	public UserCom updateUseCom(UserCom userCom, Long id) {
+		Optional<UserCom> userCmSaved = getUserComById(id);
+		if(userCmSaved.isPresent()) {
+			UserCom usercomDB = userCmSaved.get();
+			usercomDB.setBirthdayCom(userCom.getBirthdayCom());
+			usercomDB.setCpfCom(userCom.getCpfCom());
+			usercomDB.setEmailCom(userCom.getEmailCom());
+			usercomDB.setGenderCom(userCom.getGenderCom());
+			usercomDB.setLoginCom(userCom.getLoginCom());
+			usercomDB.setNameCom(userCom.getNameCom());
+			
+			repo.save(usercomDB);
+			return usercomDB;
+		} else {
+			return null;
+		}
+	}
 	
 }

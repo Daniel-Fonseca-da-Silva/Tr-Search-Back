@@ -48,7 +48,6 @@ public class UserCorpController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateUserCorp(@PathVariable("id") Long id, @RequestBody UserCorp userCorp) {
 		userCorp = service.updateUserCorp(userCorp, id);
-		
 		return userCorp != null ? ResponseEntity.ok(userCorp) : ResponseEntity.notFound().build();
 
 	}
