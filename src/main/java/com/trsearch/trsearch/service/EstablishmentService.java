@@ -22,7 +22,7 @@ public class EstablishmentService {
 	public Establishment getEstablishmentById(Long id) {
 		Optional<Establishment> establishment = repo.findById(id);
 		return establishment.orElseThrow(() -> new ObjectNotFoundException(
-				"Don't possible to find this establishment! id: " + "type: " + Establishment.class.getName()));
+				"Don't possible to find this establishment! name: " + "type: " + Establishment.class.getName()));
 	}
 	
 	public List<Establishment> establishmentName(String name) {
