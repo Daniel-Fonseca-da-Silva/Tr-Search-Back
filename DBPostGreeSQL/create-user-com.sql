@@ -1,4 +1,4 @@
-CREATE TABLE user_common(
+CREATE TABLE userCommon(
 	id SERIAL PRIMARY KEY,
     name_com VARCHAR(20) NOT NULL,
     surname_com VARCHAR(20) NOT NULL,

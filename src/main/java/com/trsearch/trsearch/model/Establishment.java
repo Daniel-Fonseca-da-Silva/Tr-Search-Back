@@ -21,7 +21,7 @@ public class Establishment implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(length = 40, nullable = false)
+	@Column(length = 40, nullable = false, unique = true)
 	private String name;
 
 	@Column(length = 60)
@@ -36,7 +36,7 @@ public class Establishment implements Serializable {
 	@Column(length = 10, nullable = false)
 	private String cep;
 
-	@Column(length = 100)
+	@Column(length = 100) 
 	private String email;
 
 	@Column(length = 15)
@@ -63,18 +63,15 @@ public class Establishment implements Serializable {
 	@Column(length = 300, columnDefinition = "TEXT", nullable = false)
 	private String description;
 
-	private Double score;
+	private Double score = 0.0;
 
-	@Column(name = "actived", nullable = false)
 	private Boolean actived = false;
 
-    @Column(name = "dataest", nullable = false)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataest = new Date();
 
 	@Deprecated
-	public Establishment() {
-	}
+	public Establishment() {}
 
 	public Establishment(Long id, String name, String site, String address, String numberr, String cep, String email,
 			String tel, String cel, String district, String city, String state, String category, String imgurl,

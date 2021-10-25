@@ -1,19 +1,18 @@
-INSERT INTO user_corp(
-name_corp,
-cnpj_corp,
-login_corp,
-email_corp,
-password_corp
+INSERT INTO userCorp(
+	nameCorp,
+	cnpjCorp,
+	loginCorp,
+	emailCorp,
+	passwordCorp
 ) 
 VALUES
 (
     'Levi e Benício Marcenaria ME',
     '39.219.520/0001-25',
-    'empresario',
-    'administracao@leviebeniciomarcenariame.com.br',
-    'F',
-    'usuaria',
-    'cceciliamayapeixoto@amure.com.br',
+    'admin',
+		'cceciliamayapeixoto@amure.com.br',
     'nTxrKgY$L@'
 );
+
+SELECT * FROM userCorp;
 
