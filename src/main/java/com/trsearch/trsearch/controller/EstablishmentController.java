@@ -72,14 +72,13 @@ public class EstablishmentController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteEstablishment(@PathVariable Long id) {
 		service.deleteEstablishment(id);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Establishment> updateEstablishment(@PathVariable Long id,
-			@RequestBody Establishment establishment) {
+	public ResponseEntity<Establishment> updateEstablishment(@PathVariable Long id, @RequestBody Establishment establishment) {
 		Establishment newEstablishment = service.updateEstablishment(id, establishment);
-		return ResponseEntity.ok().body(newEstablishment);
+		return ResponseEntity.ok(newEstablishment);
 	}
 	
 }

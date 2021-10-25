@@ -69,7 +69,7 @@ public class EstablishmentService {
 		newEstablishment.setCategory(establishment.getCategory());
 		newEstablishment.setImgurl(establishment.getImgurl());
 		newEstablishment.setDescription(establishment.getDescription());
-
+		
 		return repo.save(newEstablishment);
 	}
 	
