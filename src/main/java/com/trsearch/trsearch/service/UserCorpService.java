@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.trsearch.trsearch.exception.ObjectNotFoundException;
 import com.trsearch.trsearch.model.UserCorp;
 
 @Service
@@ -36,17 +35,19 @@ public class UserCorpService {
 			repo.save(usercDB);
 			return usercDB;
 		} else {
-			throw new ObjectNotFoundException(
-					"Don't possible to update this user! name: " + "type: " + UserCorp.class.getName());
+			return null;
 		}
 
 	}
 
-	public void deleteUserCorp(Long id) {
+	public boolean deleteUserCorp(Long id) {
 		Optional<UserCorp> userCorp = getUserCorpById(id);
 
-		if (userCorp.isPresent())
+		if (userCorp.isPresent()) {
 			repo.deleteById(id);
+			return true;
+		} else
+			return false;
 	}
 
 }
