@@ -23,44 +23,44 @@ import com.trsearch.trsearch.service.EstablishmentService;
 @RestController
 @RequestMapping("/api/v1/establishment")
 public class EstablishmentController {
-	
+
 	@Autowired
 	EstablishmentService service;
-	
+
 	@GetMapping
 	public List<Establishment> get() {
 		return service.getEstablishment();
 	}
-	
+
 	@GetMapping("/{id}")
 	public Establishment getEstablishmentById(@PathVariable("id") Long id) {
 		return service.getEstablishmentById(id);
 	}
-	
+
 	@GetMapping("/name/{name}")
 	public ResponseEntity<List<Establishment>> establishmentName(@PathVariable("name") String name) {
 		List<Establishment> establishments = service.establishmentName(name);
 		return ResponseEntity.ok().body(establishments);
 	}
-	
+
 	@GetMapping("/category/{category}")
 	public ResponseEntity<List<Establishment>> establishmentCategory(@PathVariable("category") String category) {
 		List<Establishment> establishments = (List<Establishment>) service.establishmentCategory(category);
 		return establishments.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(establishments);
 	}
-	
+
 	@GetMapping("/actived")
 	public ResponseEntity<List<Establishment>> establishmentActived() {
 		List<Establishment> establishments = service.establishmentActived();
 		return ResponseEntity.ok().body(establishments);
 	}
-	
+
 	@GetMapping("/deactivated")
 	public ResponseEntity<List<Establishment>> establishmentDeactivated() {
 		List<Establishment> establishments = service.establishmentDeactivated();
 		return ResponseEntity.ok().body(establishments);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<Establishment> createEstablishment(@RequestBody Establishment establishment) {
 		establishment = service.createEstablishment(establishment);
@@ -68,17 +68,18 @@ public class EstablishmentController {
 				.toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteEstablishment(@PathVariable Long id) {
 		service.deleteEstablishment(id);
 		return ResponseEntity.ok().build();
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<Establishment> updateEstablishment(@PathVariable Long id, @RequestBody Establishment establishment) {
+	public ResponseEntity<Establishment> updateEstablishment(@PathVariable Long id,
+			@RequestBody Establishment establishment) {
 		Establishment newEstablishment = service.updateEstablishment(id, establishment);
 		return ResponseEntity.ok(newEstablishment);
 	}
-	
+
 }
