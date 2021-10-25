@@ -40,7 +40,7 @@ public class UserCorpController {
 		URI location = getUri(userCorp.getId());
 		return ResponseEntity.created(location).build();
 	}
-	
+
 	private URI getUri(Long id) {
 		return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
 	}
@@ -55,7 +55,6 @@ public class UserCorpController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteUserCorp(@PathVariable("id") Long id) {
 		boolean ok = service.deleteUserCorp(id);
-		
 		return ok ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
 	}
 

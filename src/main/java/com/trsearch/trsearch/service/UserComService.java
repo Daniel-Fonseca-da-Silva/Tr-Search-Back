@@ -9,7 +9,7 @@ import com.trsearch.trsearch.model.UserCom;
 
 @Service
 public class UserComService {
-	
+
 	@Autowired
 	UserComRepository repo;
 
@@ -23,7 +23,7 @@ public class UserComService {
 
 	public UserCom updateUseCom(UserCom userCom, Long id) {
 		Optional<UserCom> userCmSaved = getUserComById(id);
-		if(userCmSaved.isPresent()) {
+		if (userCmSaved.isPresent()) {
 			UserCom usercomDB = userCmSaved.get();
 			usercomDB.setBirthdayCom(userCom.getBirthdayCom());
 			usercomDB.setCpfCom(userCom.getCpfCom());
@@ -31,12 +31,22 @@ public class UserComService {
 			usercomDB.setGenderCom(userCom.getGenderCom());
 			usercomDB.setLoginCom(userCom.getLoginCom());
 			usercomDB.setNameCom(userCom.getNameCom());
-			
+
 			repo.save(usercomDB);
 			return usercomDB;
 		} else {
 			return null;
 		}
 	}
-	
+
+	public boolean deleteUserCom(Long id) {
+		Optional<UserCom> userCom = getUserComById(id);
+		if (userCom.isPresent()) {
+			repo.deleteById(id);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }
