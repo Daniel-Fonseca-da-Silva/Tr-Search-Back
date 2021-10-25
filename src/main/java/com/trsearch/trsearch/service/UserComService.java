@@ -16,5 +16,9 @@ public class UserComService {
 	public Optional<UserCom> getUserComById(Long id) {
 		return repo.findById(id);
 	}
+
+	public void createUseCom(UserCom userCom) {
+		repo.save(userCom);
+	}
 	
 }
