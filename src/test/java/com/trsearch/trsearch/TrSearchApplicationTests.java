@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class TrSearchApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void TestList() {
+		
 	}
 
 }
