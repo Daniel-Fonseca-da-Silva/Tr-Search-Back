@@ -17,8 +17,9 @@ public class UserCorpService {
 		return repo.findById(id);
 	}
 
-	public void createUserCorp(UserCorp userCorp) {
+	public UserCorp createUserCorp(UserCorp userCorp) {
 		repo.save(userCorp);
+		return userCorp;
 	}
 
 	public UserCorp updateUserCorp(UserCorp userCorp, Long id) {
