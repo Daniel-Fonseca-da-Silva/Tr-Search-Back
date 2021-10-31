@@ -17,7 +17,7 @@ import com.trsearch.trsearch.service.UserCorpService;
 class TrSearchApplicationTests {
 	
 	@MockBean
-    public UserCorpRepository userCorpRepository;
+    public UserCorpRepository repository;
 	
 	@Autowired
     public UserCorpService service;
@@ -46,6 +46,21 @@ class TrSearchApplicationTests {
 		assertFalse(service.deleteUserCorp(userCorpp.getId()));
 		service.deleteUserCorp(userCorpp.getId());
 		assertFalse(service.getUserCorpById(userCorpp.getId()).isPresent());
+	}
+	
+	@Test
+	public void TestGetIdUserCorpp() {
+		UserCorp userCorp = new UserCorp();
+		userCorp.setId(1L);
+		userCorp.setNameCorp("Levi e Benício Marcenaria ME");
+		userCorp.setCnpjCorp("39.219.520/0001-25");
+		userCorp.setLoginCorp("admin");
+		userCorp.setEmailCorp("cceciliamayapeixoto@amure.com.br");
+		userCorp.setPasswordCorp("nTxrKgY$L@");
+		
+		UserCorp userCorpp = service.createUserCorp(userCorp);
+		assertNotNull(service.getUserCorpById(userCorpp.getId()));
+		service.deleteUserCorp(userCorpp.getId());
 	}
 
 }
