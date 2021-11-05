@@ -1,14 +1,12 @@
 package com.trsearch.trsearch.model;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Data
@@ -19,6 +17,9 @@ public class UserCorp implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@OneToMany(targetEntity = Establishment.class, mappedBy = "id", cascade = CascadeType.ALL)
+	private List<Establishment> establishment;
 
 	@Column(length = 40, nullable = false, unique = true)
 	private String nameCorp;

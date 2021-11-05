@@ -3,11 +3,7 @@ package com.trsearch.trsearch.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -22,6 +18,9 @@ public class Establishment implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@ManyToOne
+	private UserCorp userCorp;
 
 	@Column(length = 40, nullable = false, unique = true)
 	private String name;
