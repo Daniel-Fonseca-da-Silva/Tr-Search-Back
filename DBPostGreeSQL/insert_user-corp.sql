@@ -11,8 +11,7 @@ VALUES
     '39.219.520/0001-25',
     'admin',
 		'cceciliamayapeixoto@amure.com.br',
-    'nTxrKgY$L@'
+    '$2a$10$1OgWngg4nAEnjcaY1tTMwOh7R4fGZVRMMyqR1LQzDYUZc2yV.7UYi'
 );
 
 SELECT * FROM user_corp;
-

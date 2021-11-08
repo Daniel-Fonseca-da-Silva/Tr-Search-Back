@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import lombok.Data;
 import org.hibernate.annotations.Cascade;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Data
@@ -33,7 +34,12 @@ public class UserCorp implements Serializable {
 	@Column(length = 100, nullable = false, unique = true)
 	private String emailCorp;
 
-	@Column(length = 12, nullable = false, unique = true)
+	@Column(length = 100, nullable = false, unique = true)
 	private String passwordCorp;
+
+//	public static void main(String[] args) {
+//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//		System.out.println(encoder.encode("nTxrKgY$L@"));
+//	}
 
 }

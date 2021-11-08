@@ -1,5 +1,7 @@
 package com.trsearch.trsearch.service;
 
+import com.trsearch.trsearch.model.UserCorp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,17 +11,18 @@ import org.springframework.stereotype.Service;
 
 @Service(value = "userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
+
+    @Autowired
+    private UserCorpRepository userCorpRep;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        UserCorp userCorp = userCorpRep.findByLoginCorp(username);
 
-        if(username.equals("user")) {
-            return User.withUsername(username).password(encoder.encode("user")).roles("USER").build();
-        } else if(username.equals("admin")) {
-            return User.withUsername(username).password(encoder.encode("admin")).roles("USER", "ADMIN").build();
-        }
-
+        if(userCorp != null)
+            return User.withUsername(username).password(userCorp.getPasswordCorp()).roles("USER").build();
         throw new UsernameNotFoundException("User not found");
+
     }
 }
