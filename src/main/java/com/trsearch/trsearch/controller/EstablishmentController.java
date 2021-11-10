@@ -71,6 +71,7 @@ public class EstablishmentController {
 		return ResponseEntity.created(uri).build();
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteEstablishment(@PathVariable Long id) {
 		service.deleteEstablishment(id);

@@ -4,7 +4,7 @@ CREATE TABLE user_corp(
         email_corp VARCHAR(100) NOT NULL,
         login_corp VARCHAR(12) NOT NULL,
         name_corp VARCHAR(40) NOT NULL,
-        password_corp VARCHAR(12) NOT NULL
+        password_corp VARCHAR(100) NOT NULL
 );
 
 ALTER TABLE user_corp
