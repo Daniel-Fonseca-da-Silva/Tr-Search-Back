@@ -8,6 +8,7 @@ public class TrSearchBackApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TrSearchBackApplication.class, args);
+
 	}
 
 }
