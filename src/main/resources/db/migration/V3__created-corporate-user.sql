@@ -7,7 +7,7 @@ create table corporate_users (
         first_name varchar(100) not null,
         last_login TIMESTAMP,
         last_name varchar(100) not null,
-        password varchar(100) not null,
+        password varchar(255) not null,
         photo varchar(255),
         roles varchar(255),
         status boolean not null,
