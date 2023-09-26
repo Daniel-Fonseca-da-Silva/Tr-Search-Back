@@ -1,6 +1,7 @@
 package com.dafon.trsearchback.controller;
 
 import com.dafon.trsearchback.dto.DatasAuthenticationDto;
+import com.dafon.trsearchback.dto.DatasTokenDto;
 import com.dafon.trsearchback.model.RegularUser;
 import com.dafon.trsearchback.security.TokenService;
 import jakarta.validation.Valid;
@@ -21,10 +22,12 @@ public class AuthenticationController {
 
     @PostMapping
     public ResponseEntity login(@RequestBody @Valid DatasAuthenticationDto datasDto) {
-        var token = new UsernamePasswordAuthenticationToken(datasDto.email(), datasDto.password());
-        var authentication = manager.authenticate(token);
+        var authenticationToken = new UsernamePasswordAuthenticationToken(datasDto.email(), datasDto.password());
+        var authentication = manager.authenticate(authenticationToken);
 
-        return ResponseEntity.ok(tokenService.generateToken((RegularUser) authentication.getPrincipal()));
+        var tokenJwt = tokenService.generateToken((RegularUser) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new DatasTokenDto(tokenJwt));
     }
 
 

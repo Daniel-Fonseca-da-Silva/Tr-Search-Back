@@ -4,6 +4,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.dafon.trsearchback.model.RegularUser;
+import io.github.cdimascio.dotenv.Dotenv;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.*;
@@ -11,12 +13,15 @@ import java.time.*;
 @Service
 public class TokenService {
 
+    @Autowired
+    private Dotenv dotenv;
+
     public String generateToken(RegularUser regularUser) {
         try {
-            var algorithm = Algorithm.HMAC256("123321");
+            var algorithm = Algorithm.HMAC256(dotenv.get("API_SECRET"));
             return JWT.create()
                     .withIssuer("API Tr Search")
-                    .withClaim("Name: ", regularUser.getUsername())
+                    .withClaim("Name: ", regularUser.getFirst_name())
                     .withSubject(regularUser.getEmail())
                     .withExpiresAt(dateExpiration())
                     .sign(algorithm);
