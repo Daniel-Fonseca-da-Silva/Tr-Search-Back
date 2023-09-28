@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.dafon.trsearchback.model.CorporateUser;
 import com.dafon.trsearchback.model.RegularUser;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,28 @@ public class TokenService {
     @Autowired
     private Dotenv dotenv;
 
-    public String generateToken(RegularUser regularUser) {
+    public String generateTokenRegular(RegularUser regularUser) {
         try {
             var algorithm = Algorithm.HMAC256(dotenv.get("API_SECRET"));
             return JWT.create()
                     .withIssuer("API Tr Search")
                     .withClaim("Name: ", regularUser.getFirst_name())
                     .withSubject(regularUser.getEmail())
+                    .withExpiresAt(dateExpiration())
+                    .sign(algorithm);
+        } catch (
+                JWTCreationException exception){
+            throw new RuntimeException("Error when trying to generate token", exception);
+        }
+    }
+
+    public String generateTokenCorporate(CorporateUser corporateUser) {
+        try {
+            var algorithm = Algorithm.HMAC256(dotenv.get("API_SECRET"));
+            return JWT.create()
+                    .withIssuer("API Tr Search")
+                    .withClaim("Name: ", corporateUser.getFirst_name())
+                    .withSubject(corporateUser.getEmail())
                     .withExpiresAt(dateExpiration())
                     .sign(algorithm);
         } catch (
