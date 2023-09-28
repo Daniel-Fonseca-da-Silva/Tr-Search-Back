@@ -1,10 +1,10 @@
 package com.dafon.trsearchback.security;
 
+import com.dafon.trsearchback.repository.CorporateRepository;
 import com.dafon.trsearchback.repository.RegularUserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +20,10 @@ public class SecurityFilter extends OncePerRequestFilter {
     private TokenService tokenService;
 
     @Autowired
-    private RegularUserRepository userRepository;
+    private RegularUserRepository regularUserRepository;
+
+    @Autowired
+    private CorporateRepository corporateRepository;
 
 
     @Override
@@ -30,11 +33,16 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if (tokenJwt != null) {
             var subject = tokenService.getSubject(tokenJwt);
-            var regularUser = userRepository.findByEmail(subject);
+            var corporateUser = corporateRepository.findByEmail(subject);
 
-            var authentication = new UsernamePasswordAuthenticationToken(regularUser, null, regularUser.getAuthorities());
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            if (corporateUser != null) {
+                var authentication = new UsernamePasswordAuthenticationToken(corporateUser, null, corporateUser.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            } else {
+                var regulaUser = regularUserRepository.findByEmail(subject);
+                var authentication = new UsernamePasswordAuthenticationToken(regulaUser, null, regulaUser.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
         filterChain.doFilter(request, response);
     }
