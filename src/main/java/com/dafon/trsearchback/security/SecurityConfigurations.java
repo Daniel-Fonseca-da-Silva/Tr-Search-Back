@@ -28,7 +28,8 @@ public class SecurityConfigurations {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers(HttpMethod.POST, "api/v1/login").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "api/v1/login/user").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "api/v1/login/corporate").permitAll();
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
