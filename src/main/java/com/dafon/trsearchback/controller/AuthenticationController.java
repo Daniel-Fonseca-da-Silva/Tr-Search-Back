@@ -11,7 +11,7 @@ import org.springframework.security.authentication.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController()
-@RequestMapping("/login")
+@RequestMapping("api/v1/login")
 public class AuthenticationController {
 
     @Autowired
