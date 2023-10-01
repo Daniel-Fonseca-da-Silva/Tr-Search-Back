@@ -1,10 +1,10 @@
 package com.dafon.trsearchback.model;
 
 
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.*;
 
+import javax.persistence.*;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
