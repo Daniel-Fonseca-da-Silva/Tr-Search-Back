@@ -12,13 +12,13 @@ public class TestWork {
     @GetMapping("admin")
     @Secured({"ROLE_ADMIN"})
     public String work() {
-        return "ADMIN spring!";
+        return "ADMIN spring!!";
     }
 
     @GetMapping("user")
     @Secured({"ROLE_USER"})
     public String test() {
-        return "USER spring!";
+        return "USER spring!!";
     }
 
 }
