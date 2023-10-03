@@ -5,12 +5,11 @@ import com.dafon.trsearchback.dto.DatasTokenDto;
 import com.dafon.trsearchback.model.CorporateUser;
 import com.dafon.trsearchback.model.RegularUser;
 import com.dafon.trsearchback.security.TokenService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController()
 @RequestMapping("api/v1/login")
@@ -22,7 +21,6 @@ public class AuthenticationController {
 
     @Autowired
     private TokenService tokenService;
-
 
     @PostMapping("user")
     public ResponseEntity<DatasTokenDto> loginRegular(@RequestBody @Valid DatasAuthenticationDto datasDto) {
