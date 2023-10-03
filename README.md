@@ -27,6 +27,10 @@ Flyway Migration: Flyway Migration is used to control and automate database migr
 
 Lombok: Lombok simplifies Java code creation, reducing the need for writing boilerplate code.
 
+## Documentation
+You can access documentation here > http://localhost:8080/swagger-ui/index.html#/test-work/test
+The documentation in json format you can found here > http://localhost:8080/v3/api-docs
+
 ## How to Contribute
 ### If you wish to contribute to the Tr-Search project, follow these steps:
 
