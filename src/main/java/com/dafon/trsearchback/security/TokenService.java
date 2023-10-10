@@ -23,7 +23,7 @@ public class TokenService {
             var algorithm = Algorithm.HMAC256(dotenv.get("API_SECRET"));
             return JWT.create()
                     .withIssuer("API Tr Search")
-                    .withClaim("Name: ", regularUser.getFirst_name())
+                    .withClaim("Name: ", regularUser.getName())
                     .withSubject(regularUser.getEmail())
                     .withExpiresAt(dateExpiration())
                     .sign(algorithm);
@@ -38,7 +38,7 @@ public class TokenService {
             var algorithm = Algorithm.HMAC256(dotenv.get("API_SECRET"));
             return JWT.create()
                     .withIssuer("API Tr Search")
-                    .withClaim("Name: ", corporateUser.getFirst_name())
+                    .withClaim("Name: ", corporateUser.getName())
                     .withSubject(corporateUser.getEmail())
                     .withExpiresAt(dateExpiration())
                     .sign(algorithm);

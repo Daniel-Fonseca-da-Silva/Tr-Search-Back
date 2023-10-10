@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -25,10 +26,7 @@ public class User implements Serializable {
     private UUID id;
 
     @Column(length = 100, nullable = false)
-    private String first_name;
-
-    @Column(length = 100, nullable = false)
-    private String last_name;
+    private String name;
 
     @Column(length = 100, nullable = false, unique = true)
     private String email;
@@ -42,11 +40,11 @@ public class User implements Serializable {
     @Column(length = 20, nullable = true)
     private String cellphone;
 
-    @Column(length = 2, nullable = false)
-    private Boolean status;
-
     @Column(length = 255, nullable = true)
     private String photo;
+
+    @Column(length = 2, nullable = false)
+    private Boolean status;
 
     @Column(length = 255, nullable = true)
     private String roles;
@@ -61,5 +59,9 @@ public class User implements Serializable {
     @UpdateTimestamp
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime updatedAt;
+
+    public void desactivate() {
+        this.status = false;
+    }
 
 }
