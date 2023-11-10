@@ -1,26 +1,30 @@
 package com.dafon.trsearchback.controller;
 
-import com.dafon.trsearchback.dto.DatasAuthenticationDto;
-import com.dafon.trsearchback.dto.DatasTokenDto;
-import com.dafon.trsearchback.model.CorporateUser;
-import com.dafon.trsearchback.model.RegularUser;
-import com.dafon.trsearchback.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.dafon.trsearchback.dto.DatasAuthenticationDto;
+import com.dafon.trsearchback.dto.DatasTokenDto;
+import com.dafon.trsearchback.model.CorporateUser;
+import com.dafon.trsearchback.model.RegularUser;
+import com.dafon.trsearchback.security.TokenService;
+
 @RestController()
 @RequestMapping("api/v1/login")
 @CrossOrigin
 public class AuthenticationController {
 
-    @Autowired
-    private AuthenticationManager manager;
+    private final AuthenticationManager manager;
+    private final TokenService tokenService;
 
     @Autowired
-    private TokenService tokenService;
+    public AuthenticationController(AuthenticationManager manager, TokenService tokenService) {
+        this.manager = manager;
+        this.tokenService = tokenService;
+    }
 
     @PostMapping("user")
     public ResponseEntity<DatasTokenDto> loginRegular(@RequestBody @Valid DatasAuthenticationDto datasDto) {

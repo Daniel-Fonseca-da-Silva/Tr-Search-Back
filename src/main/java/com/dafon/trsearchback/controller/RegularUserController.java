@@ -1,6 +1,11 @@
 package com.dafon.trsearchback.controller;
 
+import com.dafon.trsearchback.dto.*;
+import com.dafon.trsearchback.model.RegularUser;
+import com.dafon.trsearchback.service.RegularUserService;
 import com.dafon.trsearchback.interfaces.BaseCrud;
+import com.dafon.trsearchback.security.SecurityConfigurations;
+
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -13,24 +18,30 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.*;
 
-import com.dafon.trsearchback.dto.*;
-import com.dafon.trsearchback.model.RegularUser;
-import com.dafon.trsearchback.service.RegularUserService;
 
 @RestController
 @SecurityRequirement(name = "bearer-key")
 @RequestMapping("api/v1/users")
-
 public class RegularUserController implements BaseCrud<AllDatasRegularUserDto> {
 
+    private final RegularUserService regularUserService;
+    private final SecurityConfigurations securityConfigurations;
+
     @Autowired
-    private RegularUserService regularUserService;
+    public RegularUserController(RegularUserService regularUserService, SecurityConfigurations securityConfigurations) {
+        this.regularUserService = regularUserService;
+        this.securityConfigurations = securityConfigurations;
+    }
 
     @PostMapping
     @Transactional
-    @Secured({"ROLE_USER"})
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<DatasRegularUserDto> createObject(@RequestBody @Valid DatasRegularUserDto dto, UriComponentsBuilder uriBuilder) {
         var user = new RegularUser(dto);
+
+        var encoder = securityConfigurations.passwordEncoder();
+
+        user.setPassword(encoder.encode(dto.password()));
 
         regularUserService.createElement(user);
 

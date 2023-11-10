@@ -1,19 +1,24 @@
 package com.dafon.trsearchback.service;
 
-import com.dafon.trsearchback.repository.CorporateRepository;
-import com.dafon.trsearchback.repository.RegularUserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 
+import com.dafon.trsearchback.repository.CorporateUserRepository;
+import com.dafon.trsearchback.repository.RegularUserRepository;
+
 @Service
 public class AuthenticationService implements UserDetailsService {
 
-    @Autowired
-    private RegularUserRepository regularUserRepository;
+    private final RegularUserRepository regularUserRepository;
+    private final CorporateUserRepository corporateUserRepository;
 
     @Autowired
-    private CorporateRepository corporateRepository;
+    public AuthenticationService(RegularUserRepository regularUserRepository, CorporateUserRepository corporateUserRepository) {
+        this.regularUserRepository = regularUserRepository;
+        this.corporateUserRepository = corporateUserRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -22,7 +27,7 @@ public class AuthenticationService implements UserDetailsService {
         if (regularUserFound != null)
             return regularUserFound;
 
-        return corporateRepository.findByEmail(email);
+        return corporateUserRepository.findByEmail(email);
 
 
     }

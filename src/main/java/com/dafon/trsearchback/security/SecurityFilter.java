@@ -1,7 +1,6 @@
 package com.dafon.trsearchback.security;
 
-import com.dafon.trsearchback.repository.CorporateRepository;
-import com.dafon.trsearchback.repository.RegularUserRepository;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,20 +11,24 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.dafon.trsearchback.repository.CorporateUserRepository;
+import com.dafon.trsearchback.repository.RegularUserRepository;
+
 import java.io.IOException;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private TokenService tokenService;
+    private final TokenService tokenService;
+    private final RegularUserRepository regularUserRepository;
+    private final CorporateUserRepository corporateUserRepository;
 
     @Autowired
-    private RegularUserRepository regularUserRepository;
-
-    @Autowired
-    private CorporateRepository corporateRepository;
-
+    public SecurityFilter(TokenService tokenService, RegularUserRepository regularUserRepository, CorporateUserRepository corporateUserRepository) {
+        this.tokenService = tokenService;
+        this.regularUserRepository = regularUserRepository;
+        this.corporateUserRepository = corporateUserRepository;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -34,7 +37,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if (tokenJwt != null) {
             var subject = tokenService.getSubject(tokenJwt);
-            var corporateUser = corporateRepository.findByEmail(subject);
+            var corporateUser = corporateUserRepository.findByEmail(subject);
 
             if (corporateUser != null) {
                 var authentication = new UsernamePasswordAuthenticationToken(corporateUser, null, corporateUser.getAuthorities());
