@@ -11,7 +11,7 @@ create table corporate_users (
         roles varchar(255),
         status boolean not null,
         updated_at TIMESTAMP,
-        premium varchar(20) not null check (premium in ('SIMPLE','BRONZE','SILVER','GOLD')),
+        premium varchar(20) not null check (premium in ('FREE', 'SIMPLE','BRONZE','SILVER','GOLD')),
         telephone varchar(15),
         primary key (id)
     )
