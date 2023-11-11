@@ -39,6 +39,26 @@ public class CorporateUser extends User implements UserDetails, Serializable {
         this.premium = Premium.FREE;
     }
 
+    public void updateInformation(UpdateCorporateUserDto dto) {
+        if(dto.name() != null)
+            this.setName(dto.name());
+
+        if(dto.email() != null)
+            this.setEmail(dto.email());
+
+        if(dto.photo() != null)
+            this.setPhoto(dto.photo());
+
+        if(dto.cellphone() != null)
+            this.setCellphone(dto.cellphone());
+
+        if(dto.documentation() != null)
+            this.setDocumentation(dto.documentation());
+
+        if(dto.telephone() != null)
+            telephone = dto.telephone();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_CORPORATE"));
@@ -74,23 +94,4 @@ public class CorporateUser extends User implements UserDetails, Serializable {
         return true;
     }
 
-    public void updateInformation(UpdateCorporateUserDto dto) {
-        if(dto.name() != null)
-            this.setName(dto.name());
-
-        if(dto.email() != null)
-            this.setEmail(dto.email());
-
-        if(dto.photo() != null)
-            this.setPhoto(dto.photo());
-
-        if(dto.cellphone() != null)
-            this.setCellphone(dto.cellphone());
-
-        if(dto.documentation() != null)
-            this.setDocumentation(dto.documentation());
-
-        if(dto.telephone() != null)
-            telephone = dto.telephone();
-    }
 }
