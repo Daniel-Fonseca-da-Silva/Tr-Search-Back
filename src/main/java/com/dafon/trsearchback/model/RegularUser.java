@@ -1,5 +1,7 @@
 package com.dafon.trsearchback.model;
 
+import com.dafon.trsearchback.dto.CreateRegularUserDto;
+import com.dafon.trsearchback.dto.UpdateRegularUserDto;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,12 +13,10 @@ import java.io.Serializable;
 import java.time.*;
 import java.util.*;
 
-import com.dafon.trsearchback.dto.DatasRegularUserDto;
-import com.dafon.trsearchback.dto.DatasRegularUserUpdateDto;
-
 @Table(name = "regular_users")
 @Entity(name = "RegularUser")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegularUser extends User implements UserDetails, Serializable {
@@ -28,12 +28,7 @@ public class RegularUser extends User implements UserDetails, Serializable {
     @Column(length = 20, nullable = false)
     private Gender gender;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-    }
-
-    public RegularUser(DatasRegularUserDto dto) {
+    public RegularUser(CreateRegularUserDto dto) {
         super.setName(dto.name());
         super.setCellphone(dto.cellphone());
         super.setPassword(dto.password());
@@ -47,7 +42,7 @@ public class RegularUser extends User implements UserDetails, Serializable {
         this.gender = dto.gender();
     }
 
-    public void updateInformation(DatasRegularUserUpdateDto dto) {
+    public void updateInformation(UpdateRegularUserDto dto) {
         if (dto.name() != null)
             this.setName(dto.name());
 
@@ -56,9 +51,6 @@ public class RegularUser extends User implements UserDetails, Serializable {
 
         if (dto.cellphone() != null)
             this.setCellphone(dto.cellphone());
-
-        if (dto.password() != null)
-            this.setPassword(dto.password());
 
         if (dto.photo() != null)
             this.setPhoto(dto.photo());
@@ -71,6 +63,11 @@ public class RegularUser extends User implements UserDetails, Serializable {
 
         if (dto.gender() != null)
             gender = dto.gender();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
@@ -102,5 +99,6 @@ public class RegularUser extends User implements UserDetails, Serializable {
     public boolean isEnabled() {
         return true;
     }
+
 
 }
