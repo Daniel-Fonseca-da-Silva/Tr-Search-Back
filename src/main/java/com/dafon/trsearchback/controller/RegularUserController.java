@@ -43,6 +43,7 @@ public class RegularUserController implements BaseCrud<CreateRegularUserDto, Upd
     @PutMapping
     @Transactional
     @Secured({"ROLE_USER"})
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<UpdateRegularUserDto> updateObject(@RequestBody @Valid UpdateRegularUserDto dto) {
         var userUpdated = regularUserService.updateElement(dto);
         return ResponseEntity.ok(new UpdateRegularUserDto(userUpdated));
@@ -50,21 +51,16 @@ public class RegularUserController implements BaseCrud<CreateRegularUserDto, Upd
 
     @GetMapping("/{email}")
     @Secured({"ROLE_USER"})
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<AllDatasRegularUserDto> findObject(@PathVariable String email) {
         var user = regularUserService.findElement(email);
         return ResponseEntity.ok(new AllDatasRegularUserDto(user));
     }
 
-//    @GetMapping
-//    @Secured({"ROLE_USER"})
-//    public ResponseEntity<Page<ShowDatasRegularUserDto>> findObjects(Pageable pagination) {
-//      var page = regularUserService.findElements(pagination);
-//      return ResponseEntity.ok(page);
-//    }
-
     @DeleteMapping("/{email}")
     @Transactional
     @Secured({"ROLE_USER"})
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Void> removeObject(@PathVariable String email) {
         regularUserService.removeElement(email);
         return ResponseEntity.noContent().build();

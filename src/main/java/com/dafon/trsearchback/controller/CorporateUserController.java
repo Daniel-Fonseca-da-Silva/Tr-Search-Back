@@ -45,6 +45,7 @@ public class CorporateUserController implements BaseCrud<CreateCorporateUserDto,
     @PutMapping
     @Secured({"ROLE_CORPORATE"})
     @Transactional
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<UpdateCorporateUserDto> updateObject(@RequestBody @Valid UpdateCorporateUserDto dto) {
         var corporateUpdated = corporateUserService.updateElement(dto);
         return ResponseEntity.ok(new UpdateCorporateUserDto(corporateUpdated));
@@ -58,8 +59,9 @@ public class CorporateUserController implements BaseCrud<CreateCorporateUserDto,
     }
 
     @DeleteMapping("/{email}")
-    @Transactional
     @Secured({"ROLE_CORPORATE"})
+    @Transactional
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Void> removeObject(@PathVariable String email) {
         corporateUserService.removeElement(email);
         return ResponseEntity.noContent().build();

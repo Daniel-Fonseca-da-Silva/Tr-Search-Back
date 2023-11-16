@@ -3,8 +3,8 @@ package com.dafon.trsearchback.service;
 import com.dafon.trsearchback.dto.UpdateRegularUserDto;
 import com.dafon.trsearchback.model.RegularUser;
 import com.dafon.trsearchback.repository.RegularUserRepository;
-
 import com.dafon.trsearchback.security.SecurityConfigurations;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,12 +36,7 @@ public class RegularUserService {
         return regularUserRepository.findByEmail(email);
     }
 
-//    public Page<ShowDatasRegularUserDto> findElements(Pageable pagination) {
-//        return regularUserRepository.findAll(pagination).map(ShowDatasRegularUserDto::new);
-//    }
-
     public void removeElement(String email) {
-        var user = regularUserRepository.findByEmail(email);
-        user.desactivate();
+        regularUserRepository.findByEmail(email).desactivate();
     }
 }
