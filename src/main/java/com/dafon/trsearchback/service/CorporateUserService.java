@@ -37,8 +37,7 @@ public class CorporateUserService {
     }
 
     public void removeElement(String email) {
-        var corporate = corporateUserRepository.findByEmail(email);
-        corporate.desactivate();
+        corporateUserRepository.findByEmail(email).desactivate();
     }
 
 }
