@@ -2,6 +2,7 @@ package com.dafon.trsearchback.model;
 
 import com.dafon.trsearchback.dto.UpdateCorporateUserDto;
 import com.dafon.trsearchback.dto.CreateCorporateUserDto;
+
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,6 +26,9 @@ public class CorporateUser extends User implements UserDetails, Serializable {
     @Enumerated(EnumType.STRING)
     @Column(length = 20, nullable = false)
     private Premium premium;
+
+    @OneToMany(mappedBy = "corporateUser")
+    private Set<Establishment> establishments;
 
     public CorporateUser(CreateCorporateUserDto dto) {
         super.setName(dto.name());
