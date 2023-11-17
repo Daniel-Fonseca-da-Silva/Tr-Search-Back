@@ -2,12 +2,10 @@ package com.dafon.trsearchback.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.dafon.trsearchback.model.CorporateUser;
-import com.dafon.trsearchback.model.RegularUser;
-import io.github.cdimascio.dotenv.Dotenv;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.auth0.jwt.exceptions.*;
+import com.dafon.trsearchback.model.*;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.*;
@@ -15,12 +13,12 @@ import java.time.*;
 @Service
 public class TokenService {
 
-    @Autowired
-    private Dotenv dotenv;
+    @Value("${API_SECRET}")
+    private String apiSecret;
 
     public String generateTokenRegular(RegularUser regularUser) {
         try {
-            var algorithm = Algorithm.HMAC256(dotenv.get("API_SECRET"));
+            var algorithm = Algorithm.HMAC256(apiSecret);
             return JWT.create()
                     .withIssuer("API Tr Search")
                     .withClaim("Name: ", regularUser.getName())
@@ -35,7 +33,7 @@ public class TokenService {
 
     public String generateTokenCorporate(CorporateUser corporateUser) {
         try {
-            var algorithm = Algorithm.HMAC256(dotenv.get("API_SECRET"));
+            var algorithm = Algorithm.HMAC256(apiSecret);
             return JWT.create()
                     .withIssuer("API Tr Search")
                     .withClaim("Name: ", corporateUser.getName())
@@ -54,7 +52,7 @@ public class TokenService {
 
     public String getSubject(String tokenJwt) {
         try {
-            var algorithm = Algorithm.HMAC256(dotenv.get("API_SECRET"));
+            var algorithm = Algorithm.HMAC256(apiSecret);
             return JWT.require(algorithm)
                     .withIssuer("API Tr Search")
                     .build()

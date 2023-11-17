@@ -2,6 +2,7 @@ package com.dafon.trsearchback.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -10,15 +11,21 @@ import javax.sql.DataSource;
 @Configuration
 public class DatabaseConfig {
 
-    @Autowired
-    private Dotenv dotenv;
+    @Value("${DB_URL}")
+    private String dbUrl;
+
+    @Value("${DB_USERNAME}")
+    private String dbUsername;
+
+    @Value("${DB_PASSWORD}")
+    private String dbPassword;
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl(dotenv.get("DB_URL"));
-        dataSource.setUsername(dotenv.get("DB_USERNAME"));
-        dataSource.setPassword(dotenv.get("DB_PASSWORD"));
+        dataSource.setUrl(dbUrl);
+        dataSource.setUsername(dbUsername);
+        dataSource.setPassword(dbPassword);
         return dataSource;
     }
 
