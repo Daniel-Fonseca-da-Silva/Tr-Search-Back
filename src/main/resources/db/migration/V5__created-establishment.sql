@@ -20,5 +20,6 @@ CREATE TABLE establishments (
     picture7 VARCHAR(255),
     picture8 VARCHAR(255),
     picture9 VARCHAR(255),
-    picture10 VARCHAR(255)
+    picture10 VARCHAR(255),
+    corporate_user_id UUID REFERENCES corporate_users(id)
 );
