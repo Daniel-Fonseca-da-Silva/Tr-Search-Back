@@ -2,6 +2,7 @@ package com.dafon.trsearchback.model;
 
 import com.dafon.trsearchback.dto.CreateEstablishmentDto;
 import com.dafon.trsearchback.dto.UpdateEstablishmentDto;
+
 import com.github.f4b6a3.uuid.UuidCreator;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -101,6 +102,10 @@ public class Establishment implements Serializable {
 
     @Column(length = 255)
     private String picture10;
+
+    @ManyToOne
+    @JoinColumn(name = "corporate_user_id", nullable = false)
+    private CorporateUser corporateUser;
 
     public Establishment(CreateEstablishmentDto dto) {
         this.name = dto.name();

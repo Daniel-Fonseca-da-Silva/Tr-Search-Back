@@ -2,8 +2,7 @@ package com.dafon.trsearchback.controller;
 
 import com.dafon.trsearchback.dto.*;
 import com.dafon.trsearchback.interfaces.BaseCrud;
-import com.dafon.trsearchback.model.Category;
-import com.dafon.trsearchback.model.Establishment;
+import com.dafon.trsearchback.model.*;
 import com.dafon.trsearchback.service.EstablishmentService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -17,10 +16,12 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.Serializable;
+
 @RestController
 @SecurityRequirement(name = "bearer-key")
 @RequestMapping("api/v1/establishment")
-public class EstablishmentController implements BaseCrud<CreateEstablishmentDto, UpdateEstablishmentDto, ShowDatasEstablishmentDto> {
+public class EstablishmentController implements Serializable, BaseCrud<CreateEstablishmentDto, UpdateEstablishmentDto, ShowDatasEstablishmentDto> {
 
     private final EstablishmentService establishmentService;
 

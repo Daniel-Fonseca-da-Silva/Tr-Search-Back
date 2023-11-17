@@ -1,15 +1,15 @@
 package com.dafon.trsearchback.service;
 
-import com.dafon.trsearchback.dto.ShowDatasEstablishmentDto;
-import com.dafon.trsearchback.dto.UpdateEstablishmentDto;
-import com.dafon.trsearchback.model.Category;
-import com.dafon.trsearchback.model.Establishment;
+import com.dafon.trsearchback.dto.*;
+import com.dafon.trsearchback.model.*;
 import com.dafon.trsearchback.repository.EstablishmentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 @Service
 public class EstablishmentService {
@@ -43,11 +43,15 @@ public class EstablishmentService {
         return establishmentRepository.findElementByName(name);
     }
 
-    public void removeElement(String code) {
-        establishmentRepository.findByCode(code).desactivate();
-    }
-
     public Establishment findElementByCode(String code) {
         return establishmentRepository.findByCode(code);
+    }
+
+    public List<Establishment> findElementsEstablishment(UUID corporateUserId) {
+        return establishmentRepository.findElementsByCorporateUser(corporateUserId);
+    }
+
+    public void removeElement(String code) {
+        establishmentRepository.findByCode(code).desactivate();
     }
 }
