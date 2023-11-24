@@ -31,12 +31,9 @@ public class RegularUserController implements BaseCrud<CreateRegularUserDto, Upd
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<CreateRegularUserDto> createObject(@RequestBody @Valid CreateRegularUserDto dto, UriComponentsBuilder uriBuilder) {
         var user = new RegularUser(dto);
-        System.out.println(dto.gender());
-
         regularUserService.createElement(user);
 
         var uri = uriBuilder.path("/api/v1/users/{id}").buildAndExpand(user.getId()).toUri();
-
         return ResponseEntity.created(uri).body(dto);
     }
 
