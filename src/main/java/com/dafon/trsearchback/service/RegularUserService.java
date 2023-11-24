@@ -1,6 +1,7 @@
 package com.dafon.trsearchback.service;
 
 import com.dafon.trsearchback.dto.UpdateRegularUserDto;
+import com.dafon.trsearchback.exception.Custom404Exception;
 import com.dafon.trsearchback.model.RegularUser;
 import com.dafon.trsearchback.repository.RegularUserRepository;
 import com.dafon.trsearchback.security.SecurityConfigurations;
@@ -28,15 +29,33 @@ public class RegularUserService {
 
     public RegularUser updateElement(UpdateRegularUserDto dto) {
         var user = regularUserRepository.findByEmail(dto.email());
-        user.updateInformation(dto);
-        return user;
+
+        if(user != null) {
+            user.updateInformation(dto);
+            return user;
+        } else {
+            throw new Custom404Exception("Email not found, please verify!");
+        }
     }
 
     public RegularUser findElement(String email) {
-        return regularUserRepository.findByEmail(email);
+        var user = regularUserRepository.findByEmail(email);
+
+        if(user != null) {
+            return user;
+        } else {
+            throw new Custom404Exception("User not found, please verify!");
+        }
     }
 
     public void removeElement(String email) {
-        regularUserRepository.findByEmail(email).desactivate();
+        var user = regularUserRepository.findByEmail(email);
+
+        if(user != null) {
+            user.desactivate();
+        } else {
+            throw new Custom404Exception("User not found, please verify!");
+        }
     }
+
 }
