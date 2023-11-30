@@ -1,7 +1,10 @@
 package com.dafon.trsearchback.dto;
 
-public record CreateCorporateUserDto(
+import com.dafon.trsearchback.model.Gender;
 
+import java.time.LocalDate;
+
+public record CreateRegularUser(
         String name,
 
         String cellphone,
@@ -10,11 +13,13 @@ public record CreateCorporateUserDto(
 
         String email,
 
-        String photo,
-
         String documentation,
 
-        String telephone,
+        String photo,
+
+        LocalDate birthday,
+
+        Gender gender,
 
         String zipCode,
 
@@ -27,5 +32,7 @@ public record CreateCorporateUserDto(
         String city,
 
         String state
+
 ) {
+
 }
