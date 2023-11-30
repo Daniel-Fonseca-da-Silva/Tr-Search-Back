@@ -58,7 +58,7 @@ public class CorporateUserController implements BaseCrud<CreateCorporateUserDto,
     }
 
     @PutMapping
-//    @Secured({"ROLE_CORPORATE"})
+    @Secured({"ROLE_CORPORATE"})
     @Transactional
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<UpdateCorporateUserDto> updateObject(@RequestBody @Valid UpdateCorporateUserDto dto) {

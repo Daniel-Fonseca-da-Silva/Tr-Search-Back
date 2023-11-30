@@ -36,9 +36,9 @@ public class EstablishmentController implements Serializable {
      this.corporateUserService = corporateUserService;
     }
 
-    @PostMapping("create/{email}")
+    @PostMapping("/{email}")
     @Transactional
-//    @Secured({"ROLE_CORPORATE"})
+    @Secured({"ROLE_CORPORATE"})
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<CreateEstablishmentDto> createObject(@PathVariable String email, @RequestBody @Valid CreateEstablishmentDto dto, UriComponentsBuilder uriBuilder) {
 
@@ -69,7 +69,7 @@ public class EstablishmentController implements Serializable {
 
     @PutMapping
     @Transactional
-//    @Secured({"ROLE_CORPORATE"})
+    @Secured({"ROLE_CORPORATE"})
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<UpdateEstablishmentDto> updateObject(@RequestBody UpdateEstablishmentDto dto) {
         var establishmentUpdated = establishmentService.updateElement(dto);
