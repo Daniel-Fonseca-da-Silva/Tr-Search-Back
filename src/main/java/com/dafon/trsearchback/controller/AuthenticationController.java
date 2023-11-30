@@ -1,16 +1,14 @@
 package com.dafon.trsearchback.controller;
 
+import com.dafon.trsearchback.dto.*;
+import com.dafon.trsearchback.model.*;
+import com.dafon.trsearchback.security.TokenService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.web.bind.annotation.*;
-
-import com.dafon.trsearchback.dto.DatasAuthenticationDto;
-import com.dafon.trsearchback.dto.DatasTokenDto;
-import com.dafon.trsearchback.model.CorporateUser;
-import com.dafon.trsearchback.model.RegularUser;
-import com.dafon.trsearchback.security.TokenService;
 
 @RestController()
 @RequestMapping("api/v1/login")
@@ -27,23 +25,23 @@ public class AuthenticationController {
     }
 
     @PostMapping("user")
-    public ResponseEntity<DatasTokenDto> loginRegular(@RequestBody @Valid DatasAuthenticationDto datasDto) {
+    public ResponseEntity<ShowTokenDto> loginRegular(@RequestBody @Valid ShowAuthenticationDto datasDto) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(datasDto.email(), datasDto.password());
         var authentication = manager.authenticate(authenticationToken);
 
         var tokenJwt = tokenService.generateTokenRegular((RegularUser) authentication.getPrincipal());
 
-        return ResponseEntity.ok(new DatasTokenDto(tokenJwt));
+        return ResponseEntity.ok(new ShowTokenDto(tokenJwt));
     }
 
     @PostMapping("corporate")
-    public ResponseEntity<DatasTokenDto> loginCorporate(@RequestBody @Valid DatasAuthenticationDto datasDto) {
+    public ResponseEntity<ShowTokenDto> loginCorporate(@RequestBody @Valid ShowAuthenticationDto datasDto) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(datasDto.email(), datasDto.password());
         var authentication = manager.authenticate(authenticationToken);
 
         var tokenJwt = tokenService.generateTokenCorporate((CorporateUser) authentication.getPrincipal());
 
-        return ResponseEntity.ok(new DatasTokenDto(tokenJwt));
+        return ResponseEntity.ok(new ShowTokenDto(tokenJwt));
     }
 
 

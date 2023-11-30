@@ -3,9 +3,8 @@ package com.dafon.trsearchback.controller;
 import com.dafon.trsearchback.dto.*;
 import com.dafon.trsearchback.interfaces.BaseCrud;
 import com.dafon.trsearchback.model.*;
-import com.dafon.trsearchback.service.CorporateUserService;
+import com.dafon.trsearchback.service.*;
 
-import com.dafon.trsearchback.service.EstablishmentService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -15,28 +14,40 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
-import java.util.UUID;
 
 @RestController
 @SecurityRequirement(name = "bearer-key")
 @RequestMapping("api/v1/corporate")
-public class CorporateUserController implements BaseCrud<CreateCorporateUserDto, UpdateCorporateUserDto, AllDatasCorporateUserDto> {
+public class CorporateUserController implements BaseCrud<CreateCorporateUserDto, UpdateCorporateUserDto, ShowCorporateUserDto> {
 
     private final CorporateUserService corporateUserService;
-    private final EstablishmentService establishmentService;
+    private final AddressService addressService;
 
     @Autowired
-    public CorporateUserController(CorporateUserService corporateUserService, EstablishmentService establishmentService) {
+    public CorporateUserController(CorporateUserService corporateUserService, AddressService addressService) {
         this.corporateUserService = corporateUserService;
-        this.establishmentService = establishmentService;
+        this.addressService = addressService;
     }
 
     @PostMapping
     @Transactional
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<CreateCorporateUserDto> createObject(@RequestBody @Valid CreateCorporateUserDto dto, UriComponentsBuilder uriBuilder) {
-        var corporate = new CorporateUser(dto);
+
+
+        var address = new Address();
+
+        address.setCity(dto.city());
+        address.setNumber(dto.number());
+        address.setDistrict(dto.district());
+        address.setState(dto.state());
+        address.setStreet(dto.street());
+        address.setZipCode(dto.zipCode());
+        address.setStatus(true);
+
+        address = addressService.createElement(address);
+        var corporate = new CorporateUser((dto));
+        corporate.setAddress(address);
 
         corporateUserService.createElement(corporate);
 
@@ -47,7 +58,7 @@ public class CorporateUserController implements BaseCrud<CreateCorporateUserDto,
     }
 
     @PutMapping
-    @Secured({"ROLE_CORPORATE"})
+//    @Secured({"ROLE_CORPORATE"})
     @Transactional
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<UpdateCorporateUserDto> updateObject(@RequestBody @Valid UpdateCorporateUserDto dto) {
@@ -58,22 +69,9 @@ public class CorporateUserController implements BaseCrud<CreateCorporateUserDto,
     @GetMapping("/{email}")
     @Secured({"ROLE_CORPORATE"})
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<AllDatasCorporateUserDto> findObject(@PathVariable String email) {
+    public ResponseEntity<ShowCorporateUserDto> findObject(@PathVariable String email) {
         var corporate = corporateUserService.findElementByEmail(email);
-        return ResponseEntity.ok(new AllDatasCorporateUserDto(corporate));
-    }
-
-    @GetMapping("/establishments/{corporateUserId}")
-    @Secured({"ROLE_CORPORATE"})
-    @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<List<ShowDatasEstablishmentCorporateDto>> findEstablishmentsObject(@PathVariable UUID corporateUserId) {
-        List<Establishment> establishments = establishmentService.findElementsEstablishment(corporateUserId);
-
-        List<ShowDatasEstablishmentCorporateDto> dtos = establishments.stream()
-                .map(ShowDatasEstablishmentCorporateDto::new)
-                .toList();
-
-        return ResponseEntity.ok(dtos);
+        return ResponseEntity.ok(new ShowCorporateUserDto(corporate));
     }
 
     @DeleteMapping("/{email}")

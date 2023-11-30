@@ -1,7 +1,6 @@
 package com.dafon.trsearchback.dto;
 
-import com.dafon.trsearchback.model.Category;
-import com.dafon.trsearchback.model.Establishment;
+import com.dafon.trsearchback.model.*;
 
 import java.time.LocalDateTime;
 

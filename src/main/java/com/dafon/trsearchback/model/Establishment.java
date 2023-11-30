@@ -18,8 +18,7 @@ import java.util.UUID;
 @Table(name = "establishments")
 @Entity(name = "Establishment")
 @EqualsAndHashCode(of = "id")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Establishment implements Serializable {
@@ -107,6 +106,10 @@ public class Establishment implements Serializable {
     @JoinColumn(name = "corporate_user_id", nullable = false)
     private CorporateUser corporateUser;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+
     public Establishment(CreateEstablishmentDto dto) {
         this.name = dto.name();
         this.photo = dto.photo();
@@ -149,40 +152,40 @@ public class Establishment implements Serializable {
         if(dto.cellphone() != null)
             this.cellphone = dto.cellphone();
 
-        if(email != null)
+        if(dto.email() != null)
             this.email = dto.email();
 
-        if(category != null)
+        if(dto.category() != null)
             this.category = dto.category();
 
-        if(picture1 != null)
+        if(dto.picture1() != null)
             this.picture1 = dto.picture1();
 
-        if(picture2 != null)
+        if(dto.picture2() != null)
             this.picture2 = dto.picture2();
 
-        if(picture3 != null)
+        if(dto.picture3() != null)
             this.picture3 = dto.picture3();
 
-        if(picture4 != null)
+        if(dto.picture4() != null)
             this.picture4 = dto.picture4();
 
-        if(picture5 != null)
+        if(dto.picture5() != null)
             this.picture5 = dto.picture5();
 
-        if(picture6 != null)
+        if(dto.picture6() != null)
             this.picture6 = dto.picture6();
 
-        if(picture7 != null)
+        if(dto.picture7() != null)
             this.picture7 = dto.picture7();
 
-        if(picture8 != null)
+        if(dto.picture8() != null)
             this.picture8 = dto.picture8();
 
-        if(picture9 != null)
+        if(dto.picture9() != null)
             this.picture9 = dto.picture9();
 
-        if(picture10 != null)
+        if(dto.picture10() != null)
             this.picture10 = dto.picture10();
     }
 }

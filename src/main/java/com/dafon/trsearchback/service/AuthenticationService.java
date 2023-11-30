@@ -1,15 +1,16 @@
 package com.dafon.trsearchback.service;
 
+import com.dafon.trsearchback.repository.CorporateUserRepository;
+import com.dafon.trsearchback.repository.RegularUserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 
-import com.dafon.trsearchback.repository.CorporateUserRepository;
-import com.dafon.trsearchback.repository.RegularUserRepository;
+import java.io.Serializable;
 
 @Service
-public class AuthenticationService implements UserDetailsService {
+public class AuthenticationService implements UserDetailsService, Serializable {
 
     private final RegularUserRepository regularUserRepository;
     private final CorporateUserRepository corporateUserRepository;
