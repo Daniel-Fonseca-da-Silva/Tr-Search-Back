@@ -1,6 +1,6 @@
 package com.dafon.trsearchback.model;
 
-import com.dafon.trsearchback.dto.CreateRegularUserDto;
+import com.dafon.trsearchback.dto.CreateRegularUser;
 import com.dafon.trsearchback.dto.UpdateRegularUserDto;
 
 import jakarta.persistence.*;
@@ -28,7 +28,11 @@ public class RegularUser extends User implements UserDetails, Serializable {
     @Column(length = 20, nullable = false)
     private Gender gender;
 
-    public RegularUser(CreateRegularUserDto dto) {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+
+    public RegularUser(CreateRegularUser dto) {
         super.setName(dto.name());
         super.setCellphone(dto.cellphone());
         super.setPassword(dto.password());

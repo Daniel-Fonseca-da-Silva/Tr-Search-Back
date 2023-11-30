@@ -3,13 +3,15 @@ package com.dafon.trsearchback.service;
 import com.dafon.trsearchback.dto.UpdateCorporateUserDto;
 import com.dafon.trsearchback.model.CorporateUser;
 import com.dafon.trsearchback.repository.CorporateUserRepository;
-
 import com.dafon.trsearchback.security.SecurityConfigurations;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
+
 @Service
-public class CorporateUserService {
+public class CorporateUserService implements Serializable {
 
     private final CorporateUserRepository corporateUserRepository;
     private final SecurityConfigurations securityConfigurations;

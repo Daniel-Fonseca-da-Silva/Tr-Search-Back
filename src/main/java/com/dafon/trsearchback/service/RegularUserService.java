@@ -9,8 +9,10 @@ import com.dafon.trsearchback.security.SecurityConfigurations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
+
 @Service
-public class RegularUserService {
+public class RegularUserService implements Serializable {
 
     private final RegularUserRepository regularUserRepository;
     private final SecurityConfigurations securityConfigurations;

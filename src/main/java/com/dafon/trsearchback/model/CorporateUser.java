@@ -14,8 +14,7 @@ import java.util.*;
 
 @Table(name = "corporate_users")
 @Entity(name = "CorporateUse")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CorporateUser extends User implements UserDetails, Serializable {
@@ -29,6 +28,11 @@ public class CorporateUser extends User implements UserDetails, Serializable {
 
     @OneToMany(mappedBy = "corporateUser")
     private Set<Establishment> establishments;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+
 
     public CorporateUser(CreateCorporateUserDto dto) {
         super.setName(dto.name());

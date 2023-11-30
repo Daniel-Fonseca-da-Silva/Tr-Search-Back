@@ -1,6 +1,7 @@
 package com.dafon.trsearchback.service;
 
 import com.dafon.trsearchback.dto.*;
+import com.dafon.trsearchback.exception.Custom404Exception;
 import com.dafon.trsearchback.model.*;
 import com.dafon.trsearchback.repository.EstablishmentRepository;
 
@@ -9,10 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.*;
 
 @Service
-public class EstablishmentService {
+public class EstablishmentService implements Serializable {
 
     private final EstablishmentRepository establishmentRepository;
 
@@ -48,10 +50,24 @@ public class EstablishmentService {
     }
 
     public List<Establishment> findElementsEstablishment(UUID corporateUserId) {
-        return establishmentRepository.findElementsByCorporateUser(corporateUserId);
+        var establishment = establishmentRepository.findElementsByCorporateUser(corporateUserId);
+
+        if(establishment != null) {
+            return establishment;
+        } else {
+            throw new Custom404Exception("Establishment not found, please verify!");
+        }
+
     }
 
     public void removeElement(String code) {
-        establishmentRepository.findByCode(code).desactivate();
+        var establishment = establishmentRepository.findByCode(code);
+
+        if(establishment != null) {
+            establishment.desactivate();
+        } else {
+            throw new Custom404Exception("Establishment not found, please verify!");
+        }
+
     }
 }
